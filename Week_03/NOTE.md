@@ -241,9 +241,84 @@ struct TreeNode* lowestCommonAncestor(struct TreeNode* root, struct TreeNode* p,
         result = process_result(subresult1, subresult2, subresult3, ...)
 ```
 
+### 代码实践：
 
+#### [215. 数组中的第K个最大元素](https://leetcode-cn.com/problems/kth-largest-element-in-an-array/)
+
+```c
+int quick_sort(int* nums, int left, int right) {
+    if (left <= right) {
+        int i = left;
+        int j = right;
+        int x = nums[left];
+        while (i < j) {
+            while (i < j && nums[j] < x) {
+                j--;
+            }
+            if(i < j) {
+                nums[i++] = nums[j];
+            }
+
+            while(i < j && nums[i] > x) {
+                i++;
+            }
+            if(i < j) {
+                nums[j--] = nums[i];
+            }
+        }
+
+        nums[i] = x;
+        return i;
+    }
+    else {
+        return -1;
+    }
+}
+
+int findKthLargest(int* nums, int numsSize, int k){
+    int left = 0;
+    int right = numsSize - 1;
+
+    while(true) {
+        int res = quick_sort(nums, left, right);
+        if(res == k - 1) {
+            return nums[res];
+        }
+        if(res < k - 1) {
+            left = res + 1;
+        }
+        if(res > k - 1) {
+            right = res - 1;
+        }
+    }
+}
+```
 
 ## 回溯：
+
+解决一个回溯问题，实际上就是一个决策树的遍历过程。你只需要思考 3 个问题：
+
+1、路径：也就是已经做出的选择。
+
+2、选择列表：也就是你当前可以做的选择。
+
+3、结束条件：也就是到达决策树底层，无法再做选择的条件。
+
+代码方面，回溯算法的框架：
+
+```python
+result = []
+def backtrack(路径, 选择列表):
+    if 满足结束条件:
+        result.add(路径)
+        return
+for 选择 in 选择列表:
+    做选择
+    backtrack(路径, 选择列表)
+    撤销选择
+```
+
+其核心就是 for 循环里面的递归，在递归调用之前「做选择」，在递归调用之后「撤销选择」，特别简单。
 
 ### 代码模板：
 
