@@ -780,7 +780,7 @@ bool searchMatrix(int** matrix, int matrixSize, int* matrixColSize, int target){
 
 寻找旋转排序数组中的最小值，将mid和right尾节点比较：
 
-1 如果mid比right大，也即mid和right之间包含半有序数组中的无序部分，意味着比最小值一定在mid + 1和right之间；
+1 如果mid比right大，也即mid和right之间包含半有序数组中的无序部分，意味着最小值一定在mid + 1和right之间；
 
 2 如果mid比right小，也即mid和right之间为全升序序列，反过来意味着left和mid之间包含半有序数组中的无序部分，最小值一定在left和mid 之间，注意此处是包含mid的，将mid置为right；
 
