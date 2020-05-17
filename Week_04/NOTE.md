@@ -232,34 +232,6 @@ bool isMatch(char *a, char *b) {
     return cnt == 1;
 }
 
-void dfs(char * beginWord, char * endWord, char ** wordList, int m, int cnt, int* visited, int* result) {
-    if (strcmp(beginWord, endWord) == 0) {
-        result[0] = fmin(result[0], cnt);
-        printf("result[0] = %d cnt = %d\n", result[0], cnt);
-        return;
-    }
-
-    for (int i = 0; i < m; i++) {
-        if (visited[i] == 1) {
-            continue;
-        } else {
-            if (isMatch(beginWord, wordList[i])) {
-                //printf("wordList[%d] = %s cnt = %d\n", i, wordList[i], cnt);
-                if (cnt + 1 >= result[0]) {
-                    printf("--> 1. wordList[%d] = %s cnt = %d\n", i, wordList[i], cnt);
-                    continue;
-                }
-                printf("---> 2. wordList[%d] = %s cnt = %d\n", i, wordList[i], cnt);
-                visited[i] = 1;
-                dfs(wordList[i], endWord, wordList, m, cnt + 1, visited, result);
-                //visited[i] = 0;
-            }
-        }
-    }
-    
-    return;
-}
-
 int ladderLength(char * beginWord, char * endWord, char ** wordList, int wordListSize){
     if (beginWord == NULL || endWord == NULL || wordListSize <= 0) {
         return 0;
